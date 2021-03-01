@@ -37,7 +37,20 @@ public class Commands extends Command {
         if (sender instanceof ProxiedPlayer) {
             switch (args.length) {
                 case 1:
-                    printHelp(sender, args[0]);
+                    switch (args[0]) {
+                        case "list":
+                            if (PartyData.partyData.get(sender) != null) {
+                                for (ProxiedPlayer player : PartyData.partyData.get(sender)) {
+                                    sender.sendMessage(new TextComponent(player.getName()));
+                                }
+                            } else {
+                                sender.sendMessage(new TextComponent(ChatColor.RED + "파티가 없습니다!"));
+                            }
+                            return;
+                        default:
+                            printHelp(sender, args[0]);
+                            return;
+                    }
                 case 2:
                     if (sender==PartyBungee.proxy.getPlayer(args[1])) {
                         sender.sendMessage(new TextComponent("자기 자신은 최고의 친구지만 서버에서는 놀게 해드릴수가 없네요 :("));
@@ -48,27 +61,29 @@ public class Commands extends Command {
                             if (PartyBungee.proxy.getPlayer(args[1]) != null) {
                                 if (!PartyFunctions.inviteCheck((ProxiedPlayer) sender, PartyBungee.proxy.getPlayer(args[1]))) {
                                     invitePlayer((ProxiedPlayer) sender, PartyBungee.proxy.getPlayer(args[1]));
-                                    return;
+                                } else {
+                                    sender.sendMessage(new TextComponent(ChatColor.RED + "그 플레이어의 파티에 이미 있습니다!"));
                                 }
                             } else {
                                 sender.sendMessage(new TextComponent(ChatColor.RED+"그 플레이어는 현재 오프라인입니다!"));
-                                return;
                             }
-                            printHelp(sender, args[0]);
                             return;
                         case "accept":
                             if (PartyBungee.proxy.getPlayer(args[1]) != null) {
-                                acceptParty((ProxiedPlayer) sender, PartyBungee.proxy.getPlayer(args[1]));
+                                acceptParty(PartyBungee.proxy.getPlayer(args[1]), (ProxiedPlayer) sender);
                             } else {
-                                sender.sendMessage(new TextComponent(ChatColor.RED+"그사람에게서 파티신청이 온것이 없습니다!"));
+                                sender.sendMessage(new TextComponent(ChatColor.RED+"그 플레이어는 현재 오프라인입니다!"));
                             }
                             return;
                         case "deny":
                             if (PartyBungee.proxy.getPlayer(args[1]) != null) {
-                                denyParty((ProxiedPlayer) sender, PartyBungee.proxy.getPlayer(args[1]));
+                                denyParty(PartyBungee.proxy.getPlayer(args[1]), (ProxiedPlayer) sender);
                             }  else {
                                 sender.sendMessage(new TextComponent(ChatColor.RED + "그사람에게서 파티신청이 온것이 없습니다!"));
                             }
+                            return;
+                        default:
+                            printHelp(sender, args[0]);
                             return;
                     }
                 default:
