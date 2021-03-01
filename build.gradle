@@ -1,0 +1,46 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+
+group = 'com.github.Netherald'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly 'io.github.waterfallmc:waterfall-api:1.16-R0.4-SNAPSHOT'
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        // maven jitpack 추가
+    }
+}

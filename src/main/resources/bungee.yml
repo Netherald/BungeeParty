@@ -1,0 +1,4 @@
+name: PartyBungee
+version: @version@
+main: com.github.netherald.partybungee.PartyBungee
+author: Netherald https://github.com/Netherald/
