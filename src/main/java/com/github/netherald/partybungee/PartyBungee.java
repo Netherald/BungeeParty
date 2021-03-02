@@ -10,6 +10,7 @@ public final class PartyBungee extends Plugin {
     @Override
     public void onEnable() {
         getLogger().info("PartyBungee is Enable!");
+        getProxy().registerChannel( "PartyBungee:PartyMembers" );
         getProxy().getPluginManager().registerCommand(this, new Commands());
         getProxy().getPluginManager().registerListener(this, new ServerMoveEvent());
         proxy=super.getProxy();

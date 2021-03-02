@@ -50,6 +50,10 @@ public class Commands extends Command {
                         default:
                             printHelp(sender, args[0]);
                             return;
+                        case "disband":
+                            if (PartyData.partyData.get(sender)!=null) {
+                                PartyData.partyData.remove(sender);
+                            }
                     }
                 case 2:
                     if (sender==PartyBungee.proxy.getPlayer(args[1])) {

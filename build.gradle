@@ -9,6 +9,15 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        // maven jitpack 추가
+    }
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -35,12 +44,3 @@ buildscript {
     }
 }
 
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url "https://jitpack.io" }
-        // maven jitpack 추가
-    }
-}

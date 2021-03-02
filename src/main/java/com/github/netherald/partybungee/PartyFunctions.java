@@ -20,15 +20,13 @@ public class PartyFunctions {
                 return;
             }
             PartyData.sendData.get(sender_player).add(player);
-            sender_player.sendMessage(new TextComponent(ChatColor.GREEN + player.getName() + "님에게 초대를 보넸습니다!"));
-            player.sendMessage(new TextComponent(ChatColor.GREEN + sender_player.getName() + "님이 초대를 보넸습니다!"));
         } else {
             ArrayList<ProxiedPlayer> arrayList = new ArrayList<>();
             arrayList.add(player);
             PartyData.sendData.put(sender_player, arrayList);
-            sender_player.sendMessage(new TextComponent(ChatColor.GREEN + player.getName() + "님에게 초대를 보넸습니다!"));
-            player.sendMessage(new TextComponent(ChatColor.GREEN + sender_player.getName() + "님이 초대를 보넸습니다!"));
         }
+        sender_player.sendMessage(new TextComponent(ChatColor.GREEN + player.getName() + "님에게 초대를 보넸습니다!"));
+        player.sendMessage(new TextComponent(ChatColor.GREEN + sender_player.getName() + "님이 초대를 보넸습니다!"));
     }
 
     public static void acceptParty(ProxiedPlayer sender, ProxiedPlayer player) {
@@ -41,11 +39,10 @@ public class PartyFunctions {
                 ArrayList<ProxiedPlayer> arrayList = new ArrayList<>();
                 arrayList.add(player);
                 PartyData.partyData.put(sender, arrayList);
-                PartyData.sendData.get(sender).remove(player);
             } else {
                 PartyData.partyData.get(sender).add(player);
-                PartyData.sendData.get(sender).remove(player);
             }
+            PartyData.sendData.get(sender).remove(player);
             sender.sendMessage(new TextComponent(ChatColor.GREEN+player.getName()+"님이 파티신청을 받았습니다!"));
             player.sendMessage(new TextComponent(ChatColor.GREEN+sender.getName()+"님의 파티신청을 받았습니다!"));
         } else {
@@ -79,8 +76,8 @@ public class PartyFunctions {
     }
 
     public static boolean wasEnterParty(ProxiedPlayer player) {
-        for (ProxiedPlayer proxiedPlayer : PartyData.partyData.keySet()) {
-            for (ProxiedPlayer key : PartyData.partyData.get(proxiedPlayer)) {
+        for (ProxiedPlayer proxiedPlayers : PartyData.partyData.keySet()) {
+            for (ProxiedPlayer key : PartyData.partyData.get(proxiedPlayers)) {
                 if (key == player) {
                     return true;
                 }
