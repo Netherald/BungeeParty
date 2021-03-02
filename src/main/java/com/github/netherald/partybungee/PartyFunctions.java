@@ -85,6 +85,16 @@ public class PartyFunctions {
         }
         return false;
     }
+    public static ProxiedPlayer wasEnterPartyAndGetParty(ProxiedPlayer player) {
+        for (ProxiedPlayer proxiedPlayers : PartyData.partyData.keySet()) {
+            for (ProxiedPlayer key : PartyData.partyData.get(proxiedPlayers)) {
+                if (key == player) {
+                    return proxiedPlayers;
+                }
+            }
+        }
+        return null;
+    }
     public static boolean wasSendParty(ProxiedPlayer sender, ProxiedPlayer player) {
         for (ProxiedPlayer proxiedPlayer : PartyData.sendData.get(sender)) {
             for (ProxiedPlayer key : PartyData.sendData.get(proxiedPlayer)) {
